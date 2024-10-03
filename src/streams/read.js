@@ -1,9 +1,13 @@
 import { createReadStream } from "fs";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
 
-const fileDestination = "src/streams/files/fileToRead.txt";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const destinationToReadFile = path.join(__dirname, "files", "fileToRead.txt");
 
 const read = async () => {
-    const stream = createReadStream(fileDestination, "utf8");
+    const stream = createReadStream(destinationToReadFile, "utf8");
     stream.on("data", (chunk) => process.stdout.write(`${chunk}\n`))
 };
 

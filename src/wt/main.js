@@ -1,5 +1,11 @@
 import { Worker } from "worker_threads";
 import { cpus } from "os";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const destinationWorkerFile = path.join(__dirname, "worker.js");
 
 function getCpuCoresCount() {
     return cpus().length;
@@ -11,9 +17,9 @@ const performCalculations = async () => {
     const resultList = [];
     
     for (let i = 0; i < coreCounts; i++) {
-        const incrementalNumber = 35 + i;
+        const incrementalNumber = 10 + i;
         
-        const worker = new Worker("./src/wt/worker.js", { workerData: incrementalNumber });
+        const worker = new Worker(destinationWorkerFile, { workerData: incrementalNumber });
         
         worker.on("message", (data) => {
             resultList[i] = { data, status: "resolved" };

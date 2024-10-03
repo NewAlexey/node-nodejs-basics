@@ -1,26 +1,25 @@
 import { existsSync, rename as fsRename } from "fs";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
 
-const filesPath = "src/fs/files";
-
-const fileName = "wrongFilename.txt";
-const newFileName = "properFilename.md";
-
-const pathOldFile = `${filesPath}/${fileName}`;
-const pathNewFile = `${filesPath}/${newFileName}`;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const destinationToOldFile = path.join(__dirname, "files", "wrongFilename.txt");
+const destinationToNewFile = path.join(__dirname, "files", "properFilename.md");
 
 const checkFiles = () => {
-    if (!existsSync(pathOldFile)) {
+    if (!existsSync(destinationToOldFile)) {
         throw new Error("FS operation failed")
     }
     
-    if (existsSync(pathNewFile)) {
+    if (existsSync(destinationToNewFile)) {
         throw new Error("FS operation failed")
     }
 }
 
 const rename = async () => {
     checkFiles();
-    fsRename(pathOldFile, pathNewFile, (error) => {
+    fsRename(destinationToOldFile, destinationToNewFile, (error) => {
         if (error) {
             throw error;
         }

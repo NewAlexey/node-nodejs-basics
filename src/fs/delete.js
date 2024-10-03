@@ -1,17 +1,20 @@
 import { existsSync, rm } from "fs";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
 
-const fileName = "fileToRemove.txt";
-const filePath = `src/fs/files/${fileName}`;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const destinationToDeletedFile = path.join(__dirname, "files", "fileToRemove.txt");
 
 const checkFile = () => {
-    if (!existsSync(filePath)) {
+    if (!existsSync(destinationToDeletedFile)) {
         throw new Error("FS operation failed")
     }
 }
 
 const remove = async () => {
     checkFile();
-    rm(filePath, (err) => {
+    rm(destinationToDeletedFile, (err) => {
         if (err) {
             throw err;
         }

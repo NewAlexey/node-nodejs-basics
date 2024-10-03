@@ -1,11 +1,13 @@
 import { existsSync, readFile } from "fs";
+import { fileURLToPath } from "url";
+import path, { dirname } from "path";
 
-const fileName = "fileToRead.txt";
-const filePath = "src/fs/files";
-const fileDestination = `${filePath}/${fileName}`;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+const destinationToReadFile = path.join(__dirname, "files", "fileToRead.txt");
 
 const checkFile = () => {
-    if (!existsSync(fileDestination)) {
+    if (!existsSync(destinationToReadFile)) {
         throw new Error("FS operation failed")
     }
 }
@@ -13,7 +15,7 @@ const checkFile = () => {
 
 const read = async () => {
     checkFile();
-    await readFile(fileDestination, "utf8", (error, data) => {
+    await readFile(destinationToReadFile, "utf8", (error, data) => {
         if (error) {
             throw error;
         }
