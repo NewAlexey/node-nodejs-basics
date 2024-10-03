@@ -9,22 +9,22 @@ const pathOldFile = `${filesPath}/${fileName}`;
 const pathNewFile = `${filesPath}/${newFileName}`;
 
 const checkFiles = () => {
-		if (!existsSync(pathOldFile)) {
-				throw new Error("FS operation failed")
-		}
-
-		if (existsSync(pathNewFile)) {
-				throw new Error("FS operation failed")
-		}
+    if (!existsSync(pathOldFile)) {
+        throw new Error("FS operation failed")
+    }
+    
+    if (existsSync(pathNewFile)) {
+        throw new Error("FS operation failed")
+    }
 }
 
 const rename = async () => {
-		checkFiles();
-		fsRename(pathOldFile, pathNewFile, (error) => {
-				if (error) {
-						throw error;
-				}
-		})
+    checkFiles();
+    fsRename(pathOldFile, pathNewFile, (error) => {
+        if (error) {
+            throw error;
+        }
+    })
 };
 
 await rename();

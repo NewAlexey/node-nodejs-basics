@@ -4,18 +4,18 @@ const copiedFolderPath = "src/fs/files";
 const copiedFolderDestination = "src/fs/files_copy";
 
 const checkFolder = () => {
-		if (!existsSync(copiedFolderPath)) {
-				throw new Error("FS operation failed")
-		}
+    if (!existsSync(copiedFolderPath)) {
+        throw new Error("FS operation failed")
+    }
 }
 
 const copy = async () => {
-		checkFolder();
-		cp(copiedFolderPath, copiedFolderDestination, { recursive: true }, (error) => {
-				if (error) {
-						throw error
-				}
-		});
+    checkFolder();
+    cp(copiedFolderPath, copiedFolderDestination, { recursive: true }, (error) => {
+        if (error) {
+            throw error
+        }
+    });
 };
 
 await copy();

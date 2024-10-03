@@ -5,18 +5,18 @@ const filePath = `src/fs/files/${fileName}`;
 const fileContent = "I am fresh and young";
 
 const checkFile = () => {
-		if (existsSync(filePath)) {
-				throw new Error("FS operation failed")
-		}
+    if (existsSync(filePath)) {
+        throw new Error("FS operation failed")
+    }
 }
 
 const create = async () => {
-		checkFile();
-		await writeFile(filePath, fileContent, "utf8", (err) => {
-				if (err) {
-						throw err;
-				}
-		});
+    checkFile();
+    await writeFile(filePath, fileContent, "utf8", (err) => {
+        if (err) {
+            throw err;
+        }
+    });
 }
 
 
